@@ -27,8 +27,18 @@ const Article = mongoose.model("Article", articleSchema);
 
 app.get("/articles", (req, res) => {
     Article.find((err, foundArticles) => {
-        res.send(foundArticles);
+        if(!err) {
+            res.send(foundArticles);
+        } else {
+            res.send(err);
+        }
+       
     });
+});
+
+app.post("/articles", (req, res) => {
+    console.log(req.body.title);
+    console.log(req.body.content);
 });
 
 app.listen(5000, () =>  {
