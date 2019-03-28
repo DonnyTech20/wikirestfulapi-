@@ -14,9 +14,10 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 
+mongoose.connect("mongodb://localhost:27017/wikiapi",
+{userNewUrlParser: true});
 
 
-
-app.listen(3000, () => {
+app.listen(3000, () =>  {
     console.log("Dev your Server is on port 5000");
 });
