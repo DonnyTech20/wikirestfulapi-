@@ -37,9 +37,19 @@ app.get("/articles", (req, res) => {
 });
 
 app.post("/articles", (req, res) => {
-    console.log(req.body.title);
-    console.log(req.body.content);
+    console.log();
+    console.log();
+
+// collect data from postman and save to mongodb database
+const newArticle = new Article({
+    title: req.body.title,
+    content: req.body.content
 });
+
+newArticle.save();
+});
+
+
 
 app.listen(5000, () =>  {
     console.log("Dev your Server is on port 5000");
