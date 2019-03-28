@@ -14,10 +14,23 @@ app.use(bodyParser.urlencoded({
 
 app.use(express.static("public"));
 
+// connected to mongodb
 mongoose.connect("mongodb://localhost:27017/wikiapi",
-{userNewUrlParser: true});
+{useNewUrlParser: true});
 
+const articleSchema = {
+    title: String,
+    content: String
+};
 
-app.listen(3000, () =>  {
+const Article = mongoose.model("Article", articleSchema);
+
+app.get("/articles", (req, res) => {
+    Article.find((err, foundArticles) => {
+        console.log(foundArticles);
+    });
+});
+
+app.listen(5000, () =>  {
     console.log("Dev your Server is on port 5000");
 });
