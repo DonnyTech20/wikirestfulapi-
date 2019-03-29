@@ -3,6 +3,9 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
+const morgan = require("morgan");
+
+app.use(morgan('short'));
 
 const app = express();
 
@@ -46,7 +49,13 @@ const newArticle = new Article({
     content: req.body.content
 });
 
-newArticle.save();
+newArticle.save((err) => {
+if(!err){
+    res.send("I have successfully added a new article.")
+  } else {
+      res.send(err);
+  }
+ });
 });
 
 
