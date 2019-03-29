@@ -1,13 +1,12 @@
 
 const express = require("express");
+const app = express();
 const bodyParser = require("body-parser");
 const ejs = require("ejs");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 
 app.use(morgan('short'));
-
-const app = express();
 
 app.set("view engine", "ejs");
 
@@ -40,8 +39,6 @@ app.get("/articles", (req, res) => {
 });
 
 app.post("/articles", (req, res) => {
-    console.log();
-    console.log();
 
 // collect data from postman and save to mongodb database
 const newArticle = new Article({
@@ -57,6 +54,17 @@ if(!err){
   }
  });
 });
+
+app.delete("/articles", (req, res) => {
+   Article.deleteMany((err) => {
+       if (!err) {
+           res.send("All articles was deleted by client")
+       } else {
+           res.send(err);
+       }
+   }); 
+});
+
 
 
 
